@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Login</title>
+	</head>
+	<script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            var showPasswordCheckbox = document.getElementById("showPasswordCheckbox");
+            if (showPasswordCheckbox.checked) {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+	{% block styles %}
+    <!-- Adding Bootstrap-Flask styling here -->
+    {{ bootstrap.load_css() }}
+	{% endblock %}
+	<body>
+        <div class="container">
+		<h1>Login</h1>
+        <!-- This is where our form will go. -->
+		<form method="POST" action="{{ url_for('login') }}" novalidate>
+				{{ login_form.csrf_token }}
+			<p><b>
+				{{ login_form.email.label }} <br> {{ login_form.email(size=30) }}
+				{% for err in login_form.email.errors %}
+				<span style="color:red">{{ err }}</span>
+				{% endfor %}
+			</b></p>
+			<p><b>
+					{{ login_form.password.label }} <br> {{ login_form.password(size=30) }}<br>
+				<input type="checkbox" id="showPasswordCheckbox" onclick="togglePassword()"> Show Password
+				{% for err in login_form.password.errors %}
+				<span style="color:red">{{ err }}</span>
+				{% endfor %}
+			</b></p>
+			{{ login_form.submit }}
+			</form>
+        </div>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+Form Submission: When the user submits the form, either by clicking a submit button or pressing Enter, the data from the form fields (such as email and password) is sent to the server.
+
+Form Validation: Upon receiving the form data, your Flask application uses WTForms to validate the form. This validation process involves checking each field's data against the specified validators.
+
+Field Validation: For each field in the form, WTForms applies the validators associated with that field. In your case, the LoginForm class defines validators for the email and password fields.
+
+Custom Validation (Email): For the email field, you've defined a custom validator function called validate_email. When WTForms encounters this validator, it automatically invokes the validate_email function and passes the email field to it.
+
+Accessing Field Data: Inside the validate_email function, you can access the data entered into the email field using field.data. This data represents the value entered by the user into the email field.
+
+Validation Logic: You perform your validation logic on the email data. In your case, you're checking if the email is at least 6 characters long and contains the '@' symbol.
+
+Error Handling: If the email fails validation (e.g., it's too short or doesn't contain '@'), you raise a ValidationError with a custom error message. This signals to WTForms that the validation has failed for the email field.
+
+Displaying Errors: WTForms collects any validation errors raised during the validation process. After validation, it populates the form object with these error messages. You can then access these error messages in your template to display them to the user, indicating what went wrong with the form submission.
+
+Rendering Form with Errors: Finally, in your Flask route, when rendering the template, you pass the form object containing the validation errors to the template. In the template, you iterate over the errors and display them alongside the corresponding form fields.
